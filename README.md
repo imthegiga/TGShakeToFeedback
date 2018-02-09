@@ -8,6 +8,12 @@ Pod
 pod 'TGShakeToFeedback'
 ```
 
+Requirements
+------
+```swift
+* iOS 8+
+* Swift 3+
+```
 
 Usage
 ------
@@ -15,12 +21,12 @@ Usage
 From your any ```ViewController``` customise ```mailData``` &amp; ```feedbackData```
 e.g.
 ```swift
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        mailData.toRecipients = ["testuser@testdomain.com"]
-        feedbackData.message = "This feedback loaded from ViewController class. Do you want to proceed?"
-    }
+override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view, typically from a nib.
+    mailData.toRecipients = ["testuser@testdomain.com"]
+    feedbackData.message = "This feedback loaded from ViewController class. Do you want to proceed?"
+}
 ```
 
 Below variables are available for customization. If you don't set anything, the default values will be considered.
