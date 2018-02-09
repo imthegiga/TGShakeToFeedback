@@ -1,5 +1,5 @@
 //
-//  ShakeToFeedback.swift
+//  TGShakeToFeedback.swift
 //  TGShakeToFeedback
 //
 //  Created by Abhishek Salokhe on 09/02/2018.
