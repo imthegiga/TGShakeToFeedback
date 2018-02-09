@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="TrebuchetMS.ttf">
+            <string>TrebuchetMS</string>
+        </array>
+        <array key="TrebuchetMSBold.ttf">
+            <string>TrebuchetMS-Bold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TGShakeToFeedback" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U3m-8t-f93"/>
+                        <viewControllerLayoutGuide type="bottom" id="Neh-Qx-9yH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake To Feedback" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FeW-zO-bMV">
+                                <rect key="frame" x="0.0" y="40" width="375" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Nlc-D3-29A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="22"/>
+                                <color key="textColor" red="0.3411764706" green="0.4431372549" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VUi-3Y-5cs">
+                                <rect key="frame" x="0.0" y="81" width="375" height="586"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <mutableString key="text"> How to use this library?
+ 
+1. In you AppDelegate add following: 
+
+    a. var shouldShowPopup = true
+
+    b. class func shared() -&gt; AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    c. func toggleStatus() {
+        shouldShowPopup = !shouldShowPopup
+    }  
+ 2. In ViewController customise mailData &amp; feedbackData e.g.
+
+    a. mailData.toRecipients = ["user@domain.com"]      b. feedbackData.message = "This feedback loaded from ViewController class. Do you want to proceed?"</mutableString>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Neh-Qx-9yH" firstAttribute="top" secondItem="VUi-3Y-5cs" secondAttribute="bottom" id="2yy-5Y-gXI"/>
+                            <constraint firstItem="VUi-3Y-5cs" firstAttribute="top" secondItem="FeW-zO-bMV" secondAttribute="bottom" constant="20" id="IYz-YI-MMM"/>
+                            <constraint firstItem="FeW-zO-bMV" firstAttribute="top" secondItem="U3m-8t-f93" secondAttribute="bottom" constant="20" id="KTb-qE-Tlh"/>
+                            <constraint firstItem="VUi-3Y-5cs" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="N4S-rR-7Je"/>
+                            <constraint firstItem="FeW-zO-bMV" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="UcD-Ga-6q2"/>
+                            <constraint firstItem="FeW-zO-bMV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XmB-Im-L39"/>
+                            <constraint firstItem="VUi-3Y-5cs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aB3-pu-JlT"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
