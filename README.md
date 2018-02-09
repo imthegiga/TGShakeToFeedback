@@ -12,12 +12,16 @@ pod 'TGShakeToFeedback'
 Usage
 ------
 
-From your any ViewController customise mailData &amp; feedbackData
+From your any ```ViewController``` customise ```mailData``` &amp; ```feedbackData```
 e.g.
-
-1. Set mailData properties like mailData.toRecipients = ["user@domain.com"] 
-2. feedbackData properties like feedbackData.message = "This feedback loaded from ViewController class. Do you want to proceed?"
-
+```swift
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        mailData.toRecipients = ["testuser@testdomain.com"]
+        feedbackData.message = "This feedback loaded from ViewController class. Do you want to proceed?"
+    }
+```
 
 Below variables are available for customization
 
