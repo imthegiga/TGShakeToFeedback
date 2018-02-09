@@ -10,23 +10,23 @@ import Foundation
 import MessageUI
 import AudioToolbox
 
-struct MailData {
+public struct MailData {
     
-    var mailNotAvailableText = "Sorry seems you device does not support Mail feature"
-    var subject = "iOS Mobile App Feedback or Report"
-    var body = "I detected issue in the app. Attached the screen for reference."
-    var isHTML = false
-    var toRecipients = [""]
-    var ccRecipients = [""]
-    var bccRecipients = [""]
+    public var mailNotAvailableText = "Sorry seems you device does not support Mail feature"
+    public var subject = "iOS Mobile App Feedback or Report"
+    public var body = "I detected issue in the app. Attached the screen for reference."
+    public var isHTML = false
+    public var toRecipients = [""]
+    public var ccRecipients = [""]
+    public var bccRecipients = [""]
 }
 
-struct FeedbackData {
+public struct FeedbackData {
     
-    var title = "Feedback"
-    var message = "Do you want to report an issue? it will help us to improve"
-    var cancelButtonTitle = "Cancel"
-    var defaultButtonTitle = "Yes"
+    public var title = "Feedback"
+    public var message = "Do you want to report an issue? it will help us to improve"
+    public var cancelButtonTitle = "Cancel"
+    public var defaultButtonTitle = "Yes"
 }
 
 protocol PropertyStoring {
@@ -63,11 +63,11 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
     fileprivate struct FeedbackProperty {
         static var feedbackData = FeedbackData.init()
     }
-    var mailData: MailData {
+    public var mailData: MailData {
         get { return getAssociatedObject(&MailProperty.mailData, defaultValue: MailProperty.mailData) }
         set { return objc_setAssociatedObject(self, &MailProperty.mailData, newValue, .OBJC_ASSOCIATION_RETAIN) }
     }
-    var feedbackData: FeedbackData {
+    public var feedbackData: FeedbackData {
         get { return getAssociatedObject(&FeedbackProperty.feedbackData, defaultValue: FeedbackProperty.feedbackData) }
         set { return objc_setAssociatedObject(self, &FeedbackProperty.feedbackData, newValue, .OBJC_ASSOCIATION_RETAIN) }
     }
@@ -146,7 +146,7 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
     }
     
     // MARK: MFMailComposeViewControllerDelegate Method
-    open func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         self.saveToggleStatus()
         controller.dismiss(animated: true, completion: nil)
     }
