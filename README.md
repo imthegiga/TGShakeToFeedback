@@ -48,4 +48,16 @@ For ```feedbackData``` variable (```FeedbackData``` struct)
 * defaultButtonTitle
 
 
-Enjoy :smiley:
+Screenshots
+------
+|![1](/Screenshots/1.PNG)|![2](/Screenshots/2.PNG)|![3](/Screenshots/3.PNG)|
+|:---:|:---:|:---:|
+
+
+Contact
+------
+* Email: abhisheksalokhe@gmail.com
+* LinkedIn: www.linkedin.com/in/imthegiga
+* Twitter: [@imthegiga](https://twitter.com/imthegiga)
+
+Feel free to connect if you need any help :smiley:
