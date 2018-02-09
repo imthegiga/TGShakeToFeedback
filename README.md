@@ -23,7 +23,7 @@ e.g.
     }
 ```
 
-Below variables are available for customization
+Below variables are available for customization. If you don't set anything, the default values will be considered.
 
 For ```mailData``` variable (```MailData``` struct)
 * mailNotAvailableText
