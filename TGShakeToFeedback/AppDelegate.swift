@@ -12,16 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var shouldShowPopup = true
-
-    class func shared() -> AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
     
-    func toggleStatus() {
-        shouldShowPopup = !shouldShowPopup
-    }
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true

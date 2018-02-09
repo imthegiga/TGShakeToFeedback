@@ -41,22 +41,11 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VUi-3Y-5cs">
                                 <rect key="frame" x="0.0" y="81" width="375" height="586"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text"> How to use this library?
+                                <string key="text"> How to use this library?
  
-1. In you AppDelegate add following: 
+1. From your any ViewController customise mailData &amp; feedbackData e.g.
 
-    a. var shouldShowPopup = true
-
-    b. class func shared() -&gt; AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-    
-    c. func toggleStatus() {
-        shouldShowPopup = !shouldShowPopup
-    }  
- 2. In ViewController customise mailData &amp; feedbackData e.g.
-
-    a. mailData.toRecipients = ["user@domain.com"]      b. feedbackData.message = "This feedback loaded from ViewController class. Do you want to proceed?"</mutableString>
+    a. mailData.toRecipients = ["user@domain.com"]      b. feedbackData.message = "This feedback loaded from ViewController class. Do you want to proceed?"</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS" family="Trebuchet MS" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

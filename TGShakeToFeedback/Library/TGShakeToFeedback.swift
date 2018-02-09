@@ -72,12 +72,21 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
         set { return objc_setAssociatedObject(self, &FeedbackProperty.feedbackData, newValue, .OBJC_ASSOCIATION_RETAIN) }
     }
     
+    fileprivate func isAlertVisible() -> Bool {
+        return UserDefaults.standard.bool(forKey: "alertVisible")
+    }
+    
+    fileprivate func saveToggleStatus() {
+        UserDefaults.standard.set(!self.isAlertVisible(), forKey: "alertVisible")
+        UserDefaults.standard.synchronize()
+    }
+    
     open override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            if(AppDelegate.shared().shouldShowPopup) {
+            if(!isAlertVisible()) {
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 showReportAlert()
-                AppDelegate.shared().toggleStatus()
+                saveToggleStatus()
             }
         }
     }
@@ -95,17 +104,15 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
     }
     
     private func showAlert(withMessage message: String) {
-        
         let alert = UIAlertController.init(title: "", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action:UIAlertAction) in
-            AppDelegate.shared().toggleStatus()
+            self.saveToggleStatus()
             alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
     }
     
     private func configuredMailComposeViewController() -> MFMailComposeViewController {
-        
         let mailComposerVC = MFMailComposeViewController()
         mailComposerVC.mailComposeDelegate = self
         mailComposerVC.setToRecipients(mailData.toRecipients)
@@ -118,10 +125,9 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
     }
     
     fileprivate func showReportAlert() {
-        
         let alert = UIAlertController.init(title: feedbackData.title, message: feedbackData.message, preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: feedbackData.cancelButtonTitle, style: .cancel, handler: { (action:UIAlertAction) in
-            AppDelegate.shared().toggleStatus()
+            self.saveToggleStatus()
         }))
         alert.addAction(UIAlertAction.init(title: feedbackData.defaultButtonTitle, style: .default, handler: { (action:UIAlertAction) in
             self.showMailVC(screenshort: self.getFullScreenshot())
@@ -130,7 +136,6 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
     }
     
     fileprivate func getFullScreenshot() -> UIImage {
-        
         let layer = UIApplication.shared.keyWindow!.layer
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
@@ -142,8 +147,7 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
     
     // MARK: MFMailComposeViewControllerDelegate Method
     open func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        
-        AppDelegate.shared().toggleStatus()
+        self.saveToggleStatus()
         controller.dismiss(animated: true, completion: nil)
     }
 }
