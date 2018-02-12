@@ -1,4 +1,4 @@
-# TGShareToFeedback
+# TGShakeToFeedback
 Library which opens mail composer upong shake gesture. It will prompt with current app screen where user performed the guesture & attach it.
 
 
