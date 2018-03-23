@@ -14,8 +14,9 @@ public struct MailData {
     
     public var mailNotAvailableText = "Sorry seems you device does not support Mail feature"
     public var subject = "iOS Mobile App Feedback or Report"
-    public var body = "I detected issue in the app. Attached the screen for reference."
+    public var body = "I detected an issue in the app. Attached the screen for your reference."
     public var isHTML = false
+    public var bodyAsAttachment = false
     public var toRecipients = [""]
     public var ccRecipients = [""]
     public var bccRecipients = [""]
@@ -73,11 +74,11 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
     }
     
     fileprivate func isAlertVisible() -> Bool {
-        return UserDefaults.standard.bool(forKey: "alertVisible")
+        return UserDefaults.standard.value(forKey: "TGShakeToFeedbackVisible") != nil && UserDefaults.standard.bool(forKey: "TGShakeToFeedbackVisible")
     }
     
     fileprivate func saveToggleStatus() {
-        UserDefaults.standard.set(!self.isAlertVisible(), forKey: "alertVisible")
+        UserDefaults.standard.set(!self.isAlertVisible(), forKey: "TGShakeToFeedbackVisible")
         UserDefaults.standard.synchronize()
     }
     
@@ -119,7 +120,11 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
         mailComposerVC.setCcRecipients(mailData.ccRecipients)
         mailComposerVC.setBccRecipients(mailData.bccRecipients)
         mailComposerVC.setSubject(mailData.subject)
-        mailComposerVC.setMessageBody(mailData.body, isHTML: mailData.isHTML)
+        if mailData.bodyAsAttachment {
+            mailComposerVC.addAttachmentData(mailData.body.data(using: .utf32)!, mimeType: "text/plain", fileName: Date().description(with: Locale.init(identifier: "EN")))
+        } else {
+            mailComposerVC.setMessageBody(mailData.body, isHTML: mailData.isHTML)
+        }
         
         return mailComposerVC
     }

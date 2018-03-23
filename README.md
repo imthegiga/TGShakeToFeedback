@@ -39,6 +39,7 @@ For ```mailData``` variable (```MailData``` struct)
 * toRecipients
 * ccRecipients
 * bccRecipients
+* bodyAsAttachment
 
 
 For ```feedbackData``` variable (```FeedbackData``` struct)

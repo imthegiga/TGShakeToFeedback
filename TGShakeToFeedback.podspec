@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name             = 'TGShakeToFeedback'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = 'Library to have shake to feedback feature.'
   
-  s.description      = 'It lets user shake the phone and mail composer will be prompted with current user screen.'
+  s.description      = 'It lets user shake the phone and mail composer will be prompted with user's current screen.'
  
   s.homepage         = 'https://github.com/imthegiga/TGShakeToFeedback'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
