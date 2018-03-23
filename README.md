@@ -25,6 +25,7 @@ override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     mailData.toRecipients = ["testuser@testdomain.com"]
+    mailData.bodyAsAttachment = true //If true the message will be sent as an attachment instead of an email body
     feedbackData.message = "This feedback loaded from ViewController class. Do you want to proceed?"
 }
 ```
