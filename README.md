@@ -52,7 +52,7 @@ For ```feedbackData``` variable (```FeedbackData``` struct)
 
 Screenshots
 ------
-|![1](/Screenshots/1.PNG)|![2](/Screenshots/2.PNG)|![3](/Screenshots/3.PNG)|
+|![1](https://github.com/imthegiga/TGShakeToFeedback/blob/master/Screenshots/1.PNG)|![2](https://github.com/imthegiga/TGShakeToFeedback/blob/master/Screenshots/2.PNG)|![3](https://github.com/imthegiga/TGShakeToFeedback/blob/master/Screenshots/3.PNG)|
 |:---:|:---:|:---:|
 
 
