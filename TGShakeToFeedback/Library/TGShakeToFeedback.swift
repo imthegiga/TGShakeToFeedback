@@ -92,7 +92,7 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
         }
     }
     
-    fileprivate func showMailVC(screenshort:UIImage? = nil) {
+    public func showMailVC(screenshort:UIImage? = nil) {
         let mailComposeViewController = configuredMailComposeViewController()
         if let image = screenshort {
             mailComposeViewController.addAttachmentData(UIImageJPEGRepresentation(image, 1.0)!, mimeType: "image/jpeg", fileName:  "attachment.jpeg")
