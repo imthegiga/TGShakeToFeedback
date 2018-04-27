@@ -49,6 +49,7 @@ For ```feedbackData``` variable (```FeedbackData``` struct)
 * cancelButtonTitle
 * defaultButtonTitle
 
+In case you don't want to attach a screenshot, and open only mail composer; you can call ```showMailVC``` function directly
 
 Screenshots
 ------
