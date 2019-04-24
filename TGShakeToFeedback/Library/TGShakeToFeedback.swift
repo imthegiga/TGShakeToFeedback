@@ -56,6 +56,8 @@ extension PropertyStoring {
 
 extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring {
     
+    private static var alertStatus = false
+    
     internal typealias U = MailData
     internal typealias V = FeedbackData
     fileprivate struct MailProperty {
@@ -74,15 +76,14 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
     }
     
     fileprivate func isAlertVisible() -> Bool {
-        return UserDefaults.standard.value(forKey: "TGShakeToFeedbackVisible") != nil && UserDefaults.standard.bool(forKey: "TGShakeToFeedbackVisible")
+        return UIViewController.alertStatus
     }
     
     fileprivate func saveToggleStatus() {
-        UserDefaults.standard.set(!self.isAlertVisible(), forKey: "TGShakeToFeedbackVisible")
-        UserDefaults.standard.synchronize()
+        UIViewController.alertStatus.toggle()
     }
     
-    open override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             if(!isAlertVisible()) {
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -92,25 +93,21 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
         }
     }
     
-    public func showMailVC(screenshort:UIImage? = nil) {
+    public func showMailVC(screenshot: UIImage? = nil) {
         let mailComposeViewController = configuredMailComposeViewController()
-        if let image = screenshort {
-            mailComposeViewController.addAttachmentData(UIImageJPEGRepresentation(image, 1.0)!, mimeType: "image/jpeg", fileName:  "attachment.jpeg")
+        if let image = screenshot, let jpegData = image.jpegData(compressionQuality: 1.0) {
+            mailComposeViewController.addAttachmentData(jpegData, mimeType: "image/jpeg", fileName:  "attachment.jpeg")
         }
-        if MFMailComposeViewController.canSendMail() {
-            self.present(mailComposeViewController, animated: true, completion: nil)
-        } else {
-            self.showAlert(withMessage: mailData.mailNotAvailableText)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            if MFMailComposeViewController.canSendMail() {
+                self.present(mailComposeViewController, animated: true, completion: {
+                    self.saveToggleStatus()
+                })
+            } else {
+                self.saveToggleStatus()
+            }
         }
-    }
-    
-    private func showAlert(withMessage message: String) {
-        let alert = UIAlertController.init(title: "", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { (action:UIAlertAction) in
-            self.saveToggleStatus()
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        self.present(alert, animated: true, completion: nil)
     }
     
     private func configuredMailComposeViewController() -> MFMailComposeViewController {
@@ -120,12 +117,11 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
         mailComposerVC.setCcRecipients(mailData.ccRecipients)
         mailComposerVC.setBccRecipients(mailData.bccRecipients)
         mailComposerVC.setSubject(mailData.subject)
-        if mailData.bodyAsAttachment {
-            mailComposerVC.addAttachmentData(mailData.body.data(using: .utf32)!, mimeType: "text/plain", fileName: Date().description(with: Locale.init(identifier: "EN")))
+        if mailData.bodyAsAttachment == true {
+            mailComposerVC.addAttachmentData(mailData.body.data(using: .utf16)!, mimeType: "text/plain", fileName: Date().description(with: Locale.init(identifier: "EN")))
         } else {
             mailComposerVC.setMessageBody(mailData.body, isHTML: mailData.isHTML)
         }
-        
         return mailComposerVC
     }
     
@@ -135,24 +131,28 @@ extension UIViewController: MFMailComposeViewControllerDelegate, PropertyStoring
             self.saveToggleStatus()
         }))
         alert.addAction(UIAlertAction.init(title: feedbackData.defaultButtonTitle, style: .default, handler: { (action:UIAlertAction) in
-            self.showMailVC(screenshort: self.getFullScreenshot())
+            self.showMailVC(screenshot: self.getFullScreenshot())
         }))
         self.present(alert, animated: true, completion: nil)
     }
     
     fileprivate func getFullScreenshot() -> UIImage {
-        let layer = UIApplication.shared.keyWindow!.layer
-        let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
-        layer.render(in:UIGraphicsGetCurrentContext()!)
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return screenshot!
+        if #available(iOS 10.0, *) {
+            let renderer = UIGraphicsImageRenderer(bounds: self.view.bounds)
+            return renderer.image { rendererContext in
+                self.view.layer.render(in: rendererContext.cgContext)
+            }
+        } else {
+            UIGraphicsBeginImageContext(self.view.frame.size)
+            self.view.layer.render(in:UIGraphicsGetCurrentContext()!)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return UIImage(cgImage: image!.cgImage!)
+        }
     }
     
     // MARK: MFMailComposeViewControllerDelegate Method
     public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        self.saveToggleStatus()
         controller.dismiss(animated: true, completion: nil)
     }
 }

@@ -12,7 +12,7 @@ Requirements
 ------
 ```swift
 * iOS 8+
-* Swift 3+
+* Swift 5
 ```
 
 Usage
